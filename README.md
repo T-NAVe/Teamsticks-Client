@@ -2,8 +2,9 @@
 
 **_The app is focused on retrieve useful information for the Tier 3 competitive esports League of Legends scene._**
 
+![working app](screenshot.jpg)
 
-# Teamsticks Client 🐱‍👤
+# Teamsticks Client 🐱‍🐉
 
 _This desktop app is used to retrieve data from League of Legends client, and send it to mongo atlas db._
 
