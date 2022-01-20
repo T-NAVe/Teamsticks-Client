@@ -10,6 +10,7 @@ _This desktop app is used to retrieve data from League of Legends client, and se
 
 A few things you should know:
 
+* (2022-01-20) Client is working again, i'm working on improving the viewer and the back-end. Once that's done the project will be officially finished. 
 * (2021-04) Currently League of Legends is going through big changes on it's client, therefore this app is currently not working since matchlist endpoint is deprecated at the moment.
 * Many people have asked me why i don't just use the Riot's ingame-api instead of lcu-api. Tier 3 plays on live environment, and it does inside custom games, every scrim and even National Circuits are played this way. Custom game data is simply not stored anywhere else, so the only way to retrieve this data is to get it from the lcu-api. 
 * Once/if matchlist endpoint is working i will update the app.
