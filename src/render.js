@@ -3,8 +3,6 @@ const startBtn = document.getElementById('startBtn');
 const matchesBtn = document.getElementById('matchesBtn');
 const loggedBtn = document.getElementById('loggedBtn')
 const { remote } = require('electron');
-const { Menu } = remote;
-const { URLSearchParams } = require('url');
 // imports
 const LCUConnector = require('lcu-connector');
 const mongoose = require ('mongoose');
@@ -26,12 +24,10 @@ let conector = mongoose.connect(connectionString)
 //------------------------------------------
 
 const connector = new LCUConnector('');
-var protocol;
 var address;
 var username;
 var password;
 var authToken;
-var logged = false;
 var ready = false;
 var games = [];
 var lista = [];
