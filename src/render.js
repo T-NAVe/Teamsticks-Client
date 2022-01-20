@@ -97,39 +97,12 @@ async function matchsFromDb(){
         listOnDb = listado;
         return listado;
     }).then(()=>{
-        getMatches()
+        getMatchesv2()
     })
 }
-//Matchlist is currently deprecated i have to wait for Riot to implement the new client, release date is not public yet.
-function getMatches(){
-    if(!ready){
-        fetch(`https://${address}:${port}/lol-match-history/v1/matchlist`, {
-			rejectUnauthorized: false,
-			method: "GET",
-			headers: {
-				Authorization: authToken,
-				Accept: "application/json"
-			}
-        }).then(function(response){
-            console.log(response)
-            return response.json();
-        }).then(function(data){
-            console.log(data)
-            games = data.games;
-            for (i in games.games){
-                lista.push(games.games[i]);
-            }
-            ready = true;
-            return games;
-        }).then(()=>{
-            uploadGames();
-        })
-    }
-}
 
-//lol-acs plugin could work, but it seems it's also not available at the moment.
 function getMatchesv2(){
-    var accountId = '';
+    let puuid;
     if(!ready){
         fetch(`https://${address}:${port}/lol-summoner/v1/current-summoner`, {
             method: "GET",
@@ -140,13 +113,9 @@ function getMatchesv2(){
         }).then(function(response){
             return response.json();
         }).then(function(data){
-            accountId = data.accountId;
+            puuid = data.puuid;
         }).then(()=>{
-            fetch(`https://${address}:${port}/lol-acs/v2/matchlist?` + new URLSearchParams({
-                accountId: accountId,
-                begindex: 1,
-                endindex: 10
-            }), {
+            fetch(`https://${address}:${port}/lol-match-history/v1/products/lol/${puuid}/matches`, {
                 rejectUnauthorized: false,
                 method: "GET",
                 headers: {
@@ -154,10 +123,8 @@ function getMatchesv2(){
                     Accept: "application/json"
                 }
             }).then(function(response){
-                console.log(response)
                 return response.json();
             }).then(function(data){
-                console.log(data)
                 games = data.games;
                 for (i in games.games){
                     lista.push(games.games[i]);
@@ -166,7 +133,7 @@ function getMatchesv2(){
                 return games;
             }).then(()=>{
                 uploadGames();
-            })
+            }).catch(e=>console.log(e));
         })
     }
 }
@@ -183,7 +150,6 @@ function getPach(){
         }).then(data=>{
             let division = data.split("+")
             patch = division[0];
-            console.log(patch)
             return patch;
         }).then(res=>{
             if(res){
